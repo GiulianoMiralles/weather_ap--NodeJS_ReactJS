@@ -5,18 +5,18 @@ const router = Router();
 const fetch = require('node-fetch');
 
 router.get('/', async (req, res) => {
-    let responseCity = await fetch('http://ip-api.com/json');
-    let Json_response_city = await responseCity.json();
-    let city = Json_response_city.city;
-    let localidad = city.replace(/á/g, "a");
-    let localidad1 = localidad.replace(/é/g, "e");
-    let localidad2 = localidad1.replace(/í/g, "i");
-    let localidad3 = localidad2.replace(/ó/g, "o");
-    let localidadFinalFiltrada = localidad3.replace(/ú/g, "u");
+    let responseCity = await fetch('http://ip-api.com/json'); //I make the query to the api of the location given by the user's ip
+    let Json_response_city = await responseCity.json();      //Convert the string that it returns to a JSON object
+    let city = Json_response_city.city;                     //I get the current user city
+    let localidad = city.replace(/á/g, "a");                //I remove the accents to the a in case it has to be able to use it in the url
+    let localidad1 = localidad.replace(/é/g, "e");          //I remove the accents to the e in case it has to be able to use it in the url
+    let localidad2 = localidad1.replace(/í/g, "i");         //I remove the accents to the i in case it has to be able to use it in the url
+    let localidad3 = localidad2.replace(/ó/g, "o");         //I remove the accents to the o in case it has to be able to use it in the url
+    let localidadFinal = localidad3.replace(/ú/g, "u");//I remove the accents to the u in case it has to be able to use it in the url
 
-    const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${localidadFinalFiltrada}&appid=411fecc78199355b6bb7d640e92d47c7`);
-    const Json_response = await response.json();
-    const jsonFinal = {
+    const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${localidadFinal}&appid=411fecc78199355b6bb7d640e92d47c7`); // I do the query to the time api
+    const Json_response = await response.json(); //Convert the string that it returns to a JSON object
+    const jsonFinal = {                         // I create my JSON with the data that interests me
         "city": Json_response.city.name,
         "country": Json_response.city.country,
         "tomorrow": Json_response.list[7].weather[0].description,
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
         "five days later": Json_response.list[35].weather[0].description
     }
 
-    res.send(jsonFinal);
+    res.send(jsonFinal);                     //I return the JSON per screen
 
 });
 
