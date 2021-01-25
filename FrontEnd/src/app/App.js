@@ -8,7 +8,7 @@ import { WEATHER_KEY } from './keys';
 
 class App extends Component {
 
-    state = {
+    state = {            //Initial state
         temperature: '',
         description: '',
         humidity: '',
@@ -26,14 +26,14 @@ class App extends Component {
         fiveDays: ''
     };
 
-    getWeatherCurrentCity = async (e) => {
-        e.preventDefault();
+    getWeatherCurrentCity = async (e) => {                      // Function that returns the 5-day forecast of my current location
+        e.preventDefault();                                     // I prevent the page from refreshing
 
-        const API_URL1 = `http://localhost:3000/api/forecast`;
-        const response1 = await fetch(API_URL1);
-        const data1 = await response1.json();
+        const API_URL1 = `http://localhost:3000/api/forecast`; // I assign the url to a constant so that I can fetch later
+        const response1 = await fetch(API_URL1);              // I fetch and save the response in a constant
+        const data1 = await response1.json();                 // I convert my response to JSON format
 
-        this.setState({
+        this.setState({                                      // I set values to my state
             cityCurrent: data1.city,
             countryCurrent: data1.country,
             today: data1.today,
@@ -46,12 +46,12 @@ class App extends Component {
     }
 
     getWeather = async (e) => {
-        e.preventDefault();                          //Evito que se me refresque la pagina
-        const { city, country } = e.target.elements; //Obtengo los inpunts
-        const cityValue = city.value;               //Guardo en una constante en valor de la ciudad
-        const countryValue = country.value;         //Guardo en una constante el codigo del pais
+        e.preventDefault();                          // I prevent the page from refreshing
+        const { city, country } = e.target.elements; // Get the inputs of my form (Weather Form.js)
+        const cityValue = city.value;               // I keep in a constant in city value
+        const countryValue = country.value;         // I keep the country code in a constant
 
-        if (cityValue && countryValue) {
+        if (cityValue && countryValue) {           // I make a conditional so that both inputs are complete to perform a fetch with the placed values
             // metric parameter is for Celcius Unit
             const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue},${countryValue}&appid=${WEATHER_KEY}&units=metric`;
 
@@ -75,7 +75,7 @@ class App extends Component {
 
     }
 
-    render() {
+    render() {                                          // rendering of my components
         return <div className="container p-4">
             <div className="row">
                 <div className="col-md-6 mx-auto">
