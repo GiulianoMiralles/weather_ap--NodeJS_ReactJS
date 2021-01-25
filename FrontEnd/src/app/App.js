@@ -32,7 +32,6 @@ class App extends Component {
         const API_URL1 = `http://localhost:3000/api/forecast`;
         const response1 = await fetch(API_URL1);
         const data1 = await response1.json();
-        console.log("Este es mi fuckng fetch", data1)
 
         this.setState({
             cityCurrent: data1.city,
@@ -55,7 +54,6 @@ class App extends Component {
         if (cityValue && countryValue) {
             // metric parameter is for Celcius Unit
             const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue},${countryValue}&appid=${WEATHER_KEY}&units=metric`;
-            console.log(API_URL);
 
             const response = await fetch(API_URL);
             const data = await response.json();
