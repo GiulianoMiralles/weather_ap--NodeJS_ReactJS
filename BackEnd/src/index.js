@@ -10,6 +10,13 @@ app.use(morgan('dev'));                                 // - It allows me to see
 app.use(express.urlencoded({ extended: false }));       // - This allows my server to read data from a form
 app.use(express.json());                                // - This allows my server to understand JSON formats
 
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers', "*");
+    next();
+}
+app.use(allowCrossDomain);
+
 // Routes
 app.use('/api/v1', require('./routes/v1'));             // Main path of user data (Api Telecom)
 app.use('/api/location', require('./routes/location')); // Route of current location of the user (Weather API)

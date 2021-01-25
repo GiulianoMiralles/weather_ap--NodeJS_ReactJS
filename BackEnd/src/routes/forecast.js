@@ -16,14 +16,16 @@ router.get('/', async (req, res) => {
 
     const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${localidadFinal}&appid=411fecc78199355b6bb7d640e92d47c7`); // I do the query to the time api
     const Json_response = await response.json(); //Convert the string that it returns to a JSON object
+
     const jsonFinal = {                         // I create my JSON with the data that interests me
-        "city": Json_response.city.name,
+        "city": localidadFinal,
         "country": Json_response.city.country,
+        "today": Json_response.list[0].weather[0].description,
         "tomorrow": Json_response.list[7].weather[0].description,
-        "two days later": Json_response.list[14].weather[0].description,
-        "three days later": Json_response.list[21].weather[0].description,
-        "four days later": Json_response.list[28].weather[0].description,
-        "five days later": Json_response.list[35].weather[0].description
+        "two": Json_response.list[14].weather[0].description,
+        "three": Json_response.list[21].weather[0].description,
+        "four": Json_response.list[28].weather[0].description,
+        "five": Json_response.list[35].weather[0].description
     }
 
     res.send(jsonFinal);                     //I return the JSON per screen
