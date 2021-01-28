@@ -22,7 +22,11 @@ app.use('/api/v1', require('./routes/v1'));             // Main path of user dat
 app.use('/api/location', require('./routes/location')); // Route of current location of the user (Weather API)
 app.use('/api/current', require('./routes/current'));   // Route of current location of the user, temperature and weather status (Weather API)
 app.use('/api/forecast', require('./routes/forecast')); // Route of current location of the user, temperature and weather status at 5 days (Weather Api)
-
+app.get('*', (req, res) => {
+    res
+        .status('404')
+        .send(`Woops this page does not exist!`)        //404 error path
+});
 
 // Starting server
 app.listen(app.get('port'), () => {
